@@ -1,0 +1,6 @@
+skimage
+python-opencv
+matplotlib
+pandas
+numpy
+glob
