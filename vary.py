@@ -5,9 +5,6 @@ import pandas as pd
 # Change numpy's output format
 np.set_printoptions(formatter={'float_kind':"{:.2f}".format})
 
-# Faces data (f01 - f06)
-data = pd.read_csv('island_annotation.csv').drop(columns=['image_path']).values.transpose()
-
 def funcRotate(degree=0):
     degree = cv2.getTrackbarPos('degree','Frame')
     rotation_matrix = cv2.getRotationMatrix2D((width / 2, height / 2), degree, 1)
@@ -16,6 +13,39 @@ def funcRotate(degree=0):
 
 
 if __name__ == '__main__':
+    data = pd.read_csv('island_annotation.csv').drop(columns=['image_path']).values.transpose()
+    
+    C = np.cov(data)
+
+    # Covariance matrix can come out as complex numbers with very small (0) imaginary value
+    # So, make it real
+    C = np.abs(C)
+
+    print('Covariance Matrix:\n', C)
+    print('Shape:', C.shape)
+    print()
+
+    vals, vecs = np.linalg.eig(C)
+
+    # vals and vecs can come out as complex numbers with very small (0) imaginary value
+    # So, make it real
+    vals = np.abs(vals)
+    vecs = np.abs(vecs)
+
+    print('Eigenvalues:')
+    print(vals)
+    print('Shape:', vals.shape)
+    print()
+    print('Eigenvectors:')
+    print(vecs)
+    print('Shape:', vecs.shape)
+
+    # Mean face
+    mean_face = data.mean(axis=1)
+    print()
+    print('Mean face:')
+    print(mean_face)
+    print('Shape:', mean_face.shape)
     
     mean_features = data.mean(axis=1)
     mean_snake = mean_features.reshape((-1,2))

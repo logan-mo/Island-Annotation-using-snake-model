@@ -33,17 +33,6 @@ for image_path in image_paths:
 
     df.loc[len(df.index)] = snake.flatten() 
 
-    '''
-    fig, ax = plt.subplots(figsize=(7, 7))
-    ax.imshow(image, cmap=plt.cm.gray)
-    ax.plot(init[:, 1], init[:, 0], '--r', lw=3)        # Show the initial snake
-    ax.plot(snake[:, 1], snake[:, 0], '-b', lw=3)       # Show the final snake
-    ax.set_xticks([]), ax.set_yticks([])    
-    ax.axis([0, image.shape[1], image.shape[0], 0])
-    plt.show()
-    
-    plt.savefig(os.path.join('.\\images_annotated\\', image_path.split('\\')[-1]))
-    '''
     fig, ax = plt.subplots(figsize=(7, 7))
     ax.imshow(image, cmap=plt.cm.gray)
     ax.plot(snake[:, 1], snake[:, 0], '-b', lw=3)
